@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class ElectionsWithoutDistricts {
     List<String> candidates = new ArrayList<>();
     List<String> officialCandidates = new ArrayList<>();
     ArrayList<Integer> votesWithoutDistricts = new ArrayList<>();
-    private Map<String, List<String>> list;
+    private Set<String> voters;
 
-    public ElectionsWithoutDistricts(Map<String, List<String>> list) {
-        this.list = list;
+    public ElectionsWithoutDistricts(Set<String> voters) {
+        this.voters = voters;
     }
 
     public void addCandidate(String candidate) {
@@ -23,7 +24,7 @@ public class ElectionsWithoutDistricts {
         votesWithoutDistricts.add(0);
     }
 
-    public void voteFor(String elector, String candidate, String electorDistrict) {
+    public void voteFor(String candidate) {
         if (candidates.contains(candidate)) {
             int index = candidates.indexOf(candidate);
             votesWithoutDistricts.set(index, votesWithoutDistricts.get(index) + 1);
@@ -66,7 +67,7 @@ public class ElectionsWithoutDistricts {
         float nullResult = ((float) nullVotes * 100) / nbVotes;
         results.put("Null", String.format(Locale.FRENCH, "%.2f%%", nullResult));
 
-        int nbElectors = list.values().stream().map(List::size).reduce(0, Integer::sum);
+        int nbElectors = voters.size();
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         float abstentionResult = 100 - ((float) nbVotes * 100 / nbElectors);

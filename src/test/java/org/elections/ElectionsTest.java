@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ElectionsTest {
@@ -28,19 +29,19 @@ class ElectionsTest {
         legacyElections.voteFor("Simon", "", "District 2");
         legacyElections.voteFor("Carole", "", "District 3");
 
-        ElectionsWithoutDistricts elections = new ElectionsWithoutDistricts(voters);
+        ElectionsWithoutDistricts elections = new ElectionsWithoutDistricts(voters.values().stream().flatMap(List::stream).collect(toSet()));
         elections.addCandidate("Michel");
         elections.addCandidate("Jerry");
         elections.addCandidate("Johnny");
 
-        elections.voteFor("Bob", "Jerry", "District 1");
-        elections.voteFor("Jerry", "Jerry", "District 2");
-        elections.voteFor("Anna", "Johnny", "District 1");
-        elections.voteFor("Johnny", "Johnny", "District 3");
-        elections.voteFor("Matt", "Donald", "District 3");
-        elections.voteFor("Jess", "Joe", "District 1");
-        elections.voteFor("Simon", "", "District 2");
-        elections.voteFor("Carole", "", "District 3");
+        elections.voteFor("Jerry");
+        elections.voteFor("Jerry");
+        elections.voteFor("Johnny");
+        elections.voteFor("Johnny");
+        elections.voteFor("Donald");
+        elections.voteFor("Joe");
+        elections.voteFor("");
+        elections.voteFor("");
 
         assertThat(elections.results()).isEqualTo(legacyElections.results());
     }
