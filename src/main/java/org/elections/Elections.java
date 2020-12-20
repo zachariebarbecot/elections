@@ -1,7 +1,11 @@
 package org.elections;
 
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class Elections {
     List<String> candidates = new ArrayList<>();
@@ -71,7 +75,7 @@ public class Elections {
             }
 
             for (int i = 0; i < votesWithoutDistricts.size(); i++) {
-                Float candidatResult = ((float)votesWithoutDistricts.get(i) * 100) / nbValidVotes;
+                Float candidatResult = ((float) votesWithoutDistricts.get(i) * 100) / nbValidVotes;
                 String candidate = candidates.get(i);
                 if (officialCandidates.contains(candidate)) {
                     results.put(candidate, String.format(Locale.FRENCH, "%.2f%%", candidatResult));
@@ -107,7 +111,7 @@ public class Elections {
                 for (int i = 0; i < districtVotes.size(); i++) {
                     float candidateResult = 0;
                     if (nbValidVotes != 0)
-                        candidateResult = ((float)districtVotes.get(i) * 100) / nbValidVotes;
+                        candidateResult = ((float) districtVotes.get(i) * 100) / nbValidVotes;
                     String candidate = candidates.get(i);
                     if (officialCandidates.contains(candidate)) {
                         districtResult.add(candidateResult);
@@ -132,10 +136,10 @@ public class Elections {
             }
         }
 
-        float blankResult = ((float)blankVotes * 100) / nbVotes;
+        float blankResult = ((float) blankVotes * 100) / nbVotes;
         results.put("Blank", String.format(Locale.FRENCH, "%.2f%%", blankResult));
 
-        float nullResult = ((float)nullVotes * 100) / nbVotes;
+        float nullResult = ((float) nullVotes * 100) / nbVotes;
         results.put("Null", String.format(Locale.FRENCH, "%.2f%%", nullResult));
 
         int nbElectors = list.values().stream().map(List::size).reduce(0, Integer::sum);
