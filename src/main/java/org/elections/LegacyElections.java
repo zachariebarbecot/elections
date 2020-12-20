@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Elections {
+public class LegacyElections {
     List<String> candidates = new ArrayList<>();
     List<String> officialCandidates = new ArrayList<>();
     ArrayList<Integer> votesWithoutDistricts = new ArrayList<>();
@@ -15,7 +15,7 @@ public class Elections {
     private Map<String, List<String>> list;
     private boolean withDistrict;
 
-    public Elections(Map<String, List<String>> list, boolean withDistrict) {
+    public LegacyElections(Map<String, List<String>> list, boolean withDistrict) {
         this.list = list;
         this.withDistrict = withDistrict;
 
